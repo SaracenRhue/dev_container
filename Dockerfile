@@ -80,11 +80,6 @@ RUN npm install -g typescript && \
     npm install -g sass && \
     npm install -g @angular/cli
 
-
-# Copy all files from /home/user to the temporary directory
-# RUN mkdir /tmp/user_files && \
-#     cp -r /home/user/* /tmp/user_files/
-
 # Expose port 22
 ENV PORT=22
 EXPOSE 22
@@ -93,5 +88,5 @@ EXPOSE 22
 
 # Start SSH service
 RUN mkdir /var/run/sshd
-CMD bash -c "$(curl -fsSL https://raw.githubusercontent.com/SaracenRhue/myScripts/main/nala.sh)" && \
+CMD bash -c "$(curl -fsSL https://raw.githubusercontent.com/SaracenRhue/dev_container/main/setup.sh)" && \
     /usr/sbin/sshd -D
