@@ -93,6 +93,5 @@ EXPOSE 22
 
 # Start SSH service
 RUN mkdir /var/run/sshd
-CMD cd /home/user && curl -L http://install.ohmyz.sh | sh && \
-    wget https://raw.githubusercontent.com/SaracenRhue/dev_container/main/.zshrc && cd && \
+CMD bash -c "$(curl -fsSL https://raw.githubusercontent.com/SaracenRhue/myScripts/main/nala.sh)" && \
     /usr/sbin/sshd -D
