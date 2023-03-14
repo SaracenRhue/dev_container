@@ -34,51 +34,55 @@ RUN pyenv install 3.10 && \
 # Install Node.js
 RUN apt install -y nodejs npm
 
-# Configure Docker to use host Docker daemon
-ENV DOCKER_HOST=unix:///var/run/docker-host.sock
-ENV DOCKER_TLS_CERTDIR=
-# Start Docker daemon as a background process
-RUN nohup sh -c "dockerd -H unix:///var/run/docker-host.sock &"
-
-# Install Geckodriver
-RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.32.0/geckodriver-v0.32.0-linux64.tar.gz && \
-    tar -xvzf geckodriver* && \
-    chmod +x geckodriver && \
-    mv geckodriver /usr/local/bin/ && \
-    rm geckodriver* && \
-    export PATH=/usr/local/bin:$PATH
-
-# Install Java
-# RUN apt install -y openjdk-11-jdk
-# Install C++ compiler
-RUN apt install -y gcc
-# Install go compiler
-RUN apt install -y golang
-# Install Rust compiler
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+# Install Docker
+RUN apt install -y apt-transport-https ca-certificates curl gnupg lsb-release && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+    apt update && \
+    apt install -y docker-ce docker-ce-cli containerd.io
 
 
-# additional packages
-RUN apt install -y \
-    ffmpeg \
-    firefox \
-    htop \
-    nano
+RUN bash -c "$(curl -fsSL https://raw.githubusercontent.com/SaracenRhue/dev_container/main/packs.sh)"
 
-# python packages
-RUN pip install --upgrade pip && pip install \
-    torch \
-    selenium \
-    pyautogui \
-    opencv-python \
-    matplotlib \
-    numpy \
-    pillow
+# # Install Geckodriver
+# RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.32.0/geckodriver-v0.32.0-linux64.tar.gz && \
+#     tar -xvzf geckodriver* && \
+#     chmod +x geckodriver && \
+#     mv geckodriver /usr/local/bin/ && \
+#     rm geckodriver* && \
+#    export PATH=/usr/local/bin:$PATH
 
-# node packages
-RUN npm install -g typescript && \
-    npm install -g sass && \
-    npm install -g @angular/cli
+# # Install Java
+# # RUN apt install -y openjdk-11-jdk
+# # Install C++ compiler
+# RUN apt install -y gcc
+# # Install go compiler
+# RUN apt install -y golang
+# # Install Rust compiler
+# RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+
+# # additional packages
+# RUN apt install -y \
+#     ffmpeg \
+#     firefox \
+#     htop \
+#     nano
+
+# # python packages
+# RUN pip install --upgrade pip && pip install \
+#     torch \
+#     selenium \
+#     pyautogui \
+#     opencv-python \
+#     matplotlib \
+#     numpy \
+#     pillow
+
+# # node packages
+# RUN npm install -g typescript && \
+#     npm install -g sass && \
+#     npm install -g @angular/cli
 
 # Expose port 22
 ENV PORT=22
