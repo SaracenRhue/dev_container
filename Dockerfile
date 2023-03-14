@@ -93,4 +93,6 @@ EXPOSE 22
 
 # Start SSH service
 RUN mkdir /var/run/sshd
-CMD /usr/sbin/sshd -D
+CMD cd /home/user && curl -L http://install.ohmyz.sh | sh && \
+    wget https://raw.githubusercontent.com/SaracenRhue/dev_container/main/.zshrc && cd && \
+    /usr/sbin/sshd -D
