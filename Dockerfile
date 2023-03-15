@@ -1,6 +1,5 @@
 FROM nvidia/cuda:12.1.0-base-ubuntu22.04
 
-
 # Update package repositories and install dependencies
 RUN apt update
 RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata. 
@@ -42,7 +41,7 @@ RUN apt install -y apt-transport-https ca-certificates curl gnupg lsb-release &&
     apt install -y docker-ce docker-ce-cli containerd.io
 
 # Install Geckodriver
-RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.32.0/geckodriver-v0.32.0-linux64.tar.gz && \
+RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.32.2/geckodriver-v0.32.2-linux64.tar.gz && \
     tar -xvzf geckodriver* && \
     chmod +x geckodriver && \
     mv geckodriver /usr/local/bin/ && \
@@ -76,6 +75,8 @@ RUN pip install --upgrade pip && pip install \
 RUN npm install -g typescript && \
     npm install -g sass && \
     npm install -g @angular/cli
+
+
 
 # Expose port 22
 ENV PORT=22
