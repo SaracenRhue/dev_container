@@ -84,8 +84,6 @@ EXPOSE 22
 
 # VOLUME /home/user
 
-COPY . .
-
 # Start SSH service
 RUN mkdir /var/run/sshd
 CMD bash setup.sh && \
