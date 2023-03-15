@@ -84,7 +84,9 @@ EXPOSE 22
 
 # VOLUME /home/user
 
+COPY . .
+
 # Start SSH service
 RUN mkdir /var/run/sshd
-CMD bash -c "$(curl -fsSL https://raw.githubusercontent.com/SaracenRhue/dev_container/main/setup.sh)" && \
+CMD bash setup.sh && \
     /usr/sbin/sshd -D
