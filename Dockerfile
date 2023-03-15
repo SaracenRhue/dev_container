@@ -86,5 +86,4 @@ EXPOSE 22
 
 # Start SSH service
 RUN mkdir /var/run/sshd
-CMD bash setup.sh && \
-    /usr/sbin/sshd -D
+CMD /usr/sbin/sshd -D
