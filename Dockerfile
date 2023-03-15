@@ -84,6 +84,7 @@ EXPOSE 22
 
 # VOLUME /home/user
 
-# Start SSH service
+# Start SSH service and docker deamon
 RUN mkdir /var/run/sshd
-CMD /usr/sbin/sshd -D
+CMD service docker start && \
+    /usr/sbin/sshd -D
