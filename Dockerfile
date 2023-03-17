@@ -27,9 +27,11 @@ RUN curl https://pyenv.run | bash
 ENV PYENV_ROOT /root/.pyenv
 ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
 # Install Python 3.10 using Pyenv
-RUN pyenv install 3.10 && \
-    pyenv global 3.10 && \
-    pyenv install 3.11
+RUN pyenv install 3.11 && \
+    pyenv install 3.10 && \
+    pyenv install 3.9 && \
+    pyenv global 3.10
+    
 
 # Install Node.js   
 RUN apt install -y nodejs npm
@@ -55,7 +57,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 # additional packages
 RUN apt install -y \
-    openjdk-11-jdk \
+    default-jdk \
     gcc \
     golang \
     ffmpeg \
