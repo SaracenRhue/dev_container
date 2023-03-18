@@ -66,7 +66,9 @@ RUN apt install -y \
     nano
 
 # python packages
-RUN pip install --upgrade pip && pip install \
+RUN pip install --upgrade pip && \
+    pip install wheel && \
+    pip install \
     torch \
     selenium \
     pyautogui \
