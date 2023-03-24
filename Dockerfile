@@ -1,9 +1,8 @@
-FROM nvidia/cuda:12.1.0-base-ubuntu22.04
+FROM nvidia/cuda:12.1.0-base-rockylinux9
 
 # Update package repositories and install dependencies
-RUN apt update
-RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata. 
-RUN apt install -y sudo ssh build-essential libssl-dev zlib1g-dev libbz2-dev \
+RUN dnf update
+RUN dnf install -y sudo ssh build-essential libssl-dev zlib1g-dev libbz2-dev \
     libreadline-dev libsqlite3-dev wget curl git llvm libncurses5-dev \
     libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev
 
@@ -13,7 +12,7 @@ RUN useradd -ms /bin/bash user && \
     adduser user sudo
 
 # setup zsh
-RUN apt install -y zsh zsh-autosuggestions zsh-syntax-highlighting neofetch && \
+RUN dnf install -y zsh zsh-autosuggestions zsh-syntax-highlighting neofetch && \
     echo "plugins=(zsh-autosuggestions)" >> ~/.zshrc && \
     git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k && \
     echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc && \
@@ -34,14 +33,14 @@ RUN pyenv install 3.11 && \
     
 
 # Install Node.js   
-RUN apt install -y nodejs npm
+RUN dnf install -y nodejs npm
 
 # Install Docker
-RUN apt install -y apt-transport-https ca-certificates curl gnupg lsb-release && \
+RUN dnf install -y dnf-transport-https ca-certificates curl gnupg lsb-release && \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
-    apt update && \
-    apt install -y docker-ce docker-ce-cli containerd.io && \
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/dnf/sources.list.d/docker.list > /dev/null && \
+    dnf update && \
+    dnf install -y docker-ce docker-ce-cli containerd.io && \
     adduser user docker
 
 # Install Geckodriver
@@ -56,7 +55,7 @@ RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.32.2/geckod
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 # additional packages
-RUN apt install -y \
+RUN dnf install -y \
     default-jdk \
     gcc \
     golang \
