@@ -1,10 +1,8 @@
 FROM nvidia/cuda:12.1.0-base-rockylinux9
 
 # Update package repositories and install dependencies
-RUN dnf update
-RUN dnf install -y sudo ssh build-essential libssl-dev zlib1g-dev libbz2-dev \
-    libreadline-dev libsqlite3-dev wget curl git llvm libncurses5-dev \
-    libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev
+RUN dnf update -y
+RUN dnf install -y sudo git wget curl unzip ssh gcc make zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel xz xz-devel libffi-devel findutils 
 
 # Add a new user
 RUN useradd -ms /bin/bash user && \
@@ -56,10 +54,8 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 # additional packages
 RUN dnf install -y \
-    default-jdk \
-    gcc \
+    java-latest-openjdk-devel \
     golang \
-    ffmpeg \
     firefox \
     htop \
     nano
