@@ -2,7 +2,7 @@ FROM nvidia/cuda:12.1.0-base-rockylinux9
 
 # Update package repositories and install dependencies
 RUN dnf update -y
-RUN dnf install -y sudo git wget curl unzip ssh gcc make zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel xz xz-devel libffi-devel findutils 
+RUN dnf install -y sudo git wget curl unzip gcc make zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel xz xz-devel libffi-devel findutils 
 
 # Add a new user
 RUN useradd -ms /bin/bash user && \
@@ -27,7 +27,7 @@ ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
 RUN pyenv install 3.11 && \
     pyenv install 3.10 && \
     pyenv install 3.9 && \
-    pyenv global 3.10
+    pyenv global 3.11
     
 
 # Install Node.js   
@@ -37,7 +37,7 @@ RUN dnf install -y nodejs npm
 RUN dnf install -y dnf-transport-https ca-certificates curl gnupg lsb-release && \
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/dnf/sources.list.d/docker.list > /dev/null && \
-    dnf update && \
+    dnf update -y && \
     dnf install -y docker-ce docker-ce-cli containerd.io && \
     adduser user docker
 
@@ -61,9 +61,7 @@ RUN dnf install -y \
     nano
 
 # python packages
-RUN pip install --upgrade pip && \
-    pip install wheel && \
-    pip install \
+RUN pip install --upgrade pip && pip install wheel && pip install \
     torch \
     selenium \
     pyautogui \
