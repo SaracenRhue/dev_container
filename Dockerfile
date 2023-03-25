@@ -2,7 +2,7 @@ FROM nvidia/cuda:12.1.0-base-rockylinux9
 
 # Update package repositories and install dependencies
 RUN dnf update -y
-RUN dnf install -y sudo git wget curl unzip gcc make zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel xz xz-devel libffi-devel findutils 
+RUN dnf install -y sudo git wget unzip gcc make zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel xz xz-devel libffi-devel findutils 
 
 # Add a new user
 RUN useradd -ms /bin/bash user && \
