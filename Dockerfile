@@ -82,7 +82,12 @@ RUN npm install -g typescript && \
     npm install -g sass && \
     npm install -g @angular/cli
 
-
+# tailscale
+RUN curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.gpg | sudo apt-key add - && \
+    curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/focal.list | sudo tee /etc/apt/sources.list.d/tailscale.list && \
+    apt-get update && \
+    apt-get install tailscale && \
+    tailscale up
 
 # Expose port 22
 ENV PORT=22
