@@ -7,6 +7,12 @@ RUN apt install -y sudo ssh build-essential libssl-dev zlib1g-dev libbz2-dev \
     libreadline-dev libsqlite3-dev wget curl git llvm libncurses5-dev \
     libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev
 
+RUN curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/jammy.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null && \
+    curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/jammy.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list && \
+    apt update && \
+    apt install -y tailscale && \
+    tailscale up -authkey "${TAILSCALE_KEY}"
+
 # Add a new user
 RUN useradd -ms /bin/bash user && \
     echo "user:password" | chpasswd && \
