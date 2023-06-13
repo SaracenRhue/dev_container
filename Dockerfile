@@ -19,13 +19,12 @@ RUN useradd -ms /bin/bash user && \
     adduser user sudo
 
 # setup zsh
-RUN apt install -y zsh zsh-autosuggestions zsh-syntax-highlighting neofetch && \
+RUN apt install -y zsh zsh-autosuggestions zsh-syntax-highlighting && \
     echo "plugins=(zsh-autosuggestions)" >> ~/.zshrc && \
     git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k && \
     echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc && \
     curl -L http://install.ohmyz.sh | sh && \
-    chsh -s $(which zsh) user && \
-    echo "neofetch" >> ~/.zshrc
+    chsh -s $(which zsh) user
 
 # Install Pyenv
 RUN curl https://pyenv.run | bash
@@ -35,8 +34,7 @@ ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
 # Install Python 3.10 using Pyenv
 RUN pyenv install 3.11 && \
     pyenv install 3.10 && \
-    pyenv install 3.9 && \
-    pyenv global 3.10
+    pyenv global 3.11
 
 
 # Install Node.js   
@@ -88,11 +86,16 @@ RUN npm install -g typescript && \
     npm install -g sass && \
     npm install -g @angular/cli
 
+RUN mkdir /home/user/projects 
 # Expose port 22
 ENV PORT=22
 EXPOSE 22
 
-# VOLUME /home/user
+ENV PORT=3000
+EXPOSE 3000
+ENV PORT=8000
+EXPOSE 8000
+VOLUME /home/user/projects
 
 # Start SSH service and docker deamon
 RUN mkdir /var/run/sshd
