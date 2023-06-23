@@ -38,6 +38,10 @@ RUN pyenv install 3.11 && \
 
 # Install Node.js   
 RUN apt install -y nodejs npm
+RUN npm install -g typescript && \
+    npm install -g sass && \
+    npm install -g @angular/cli
+
 
 # Install Docker
 RUN apt install -y apt-transport-https ca-certificates curl gnupg lsb-release && \
@@ -81,11 +85,6 @@ RUN pip install --upgrade pip && \
     pillow \
     pick
 
-# node packages
-RUN npm install -g typescript && \
-    npm install -g sass && \
-    npm install -g @angular/cli
-
 RUN mkdir /home/user/projects 
 # Expose port 22
 ENV PORT=22
@@ -95,7 +94,7 @@ ENV PORT=3000
 EXPOSE 3000
 ENV PORT=8000
 EXPOSE 8000
-VOLUME /home/user/projects
+# VOLUME /home/user/projects
 
 # Start SSH service and docker deamon
 RUN mkdir /var/run/sshd
