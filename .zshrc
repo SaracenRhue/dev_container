@@ -107,7 +107,7 @@ alias 'ip'='curl ipinfo.io'
 alias 'git:'='git clone https://github.com/'
 
 clear
-neofetch
+
 
 
 

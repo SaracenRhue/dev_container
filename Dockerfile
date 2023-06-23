@@ -13,12 +13,13 @@ RUN apt install -y sudo ssh build-essential libssl-dev zlib1g-dev libbz2-dev \
 #     apt install -y tailscale && \
 #     tailscale up -authkey "${TAILSCALE_KEY}"
 
-COPY ./.zshrc /home/saracen/
 # Add a new user
 RUN useradd -ms /bin/bash saracen && \
     echo "saracen:nodlehs" | chpasswd && \
     adduser saracen sudo
+COPY ./.zshrc /home/saracen/
 
+WORKDIR /home/saracen
 # setup zsh
 RUN apt install -y zsh zsh-autosuggestions zsh-syntax-highlighting && \
     git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k && \
