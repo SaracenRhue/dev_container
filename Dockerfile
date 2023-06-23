@@ -33,10 +33,7 @@ ENV PYENV_ROOT /root/.pyenv
 ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
 # Install Python 3.10 using Pyenv
 RUN pyenv install 3.11 && \
-    pyenv install 3.10 && \
     pyenv global 3.11
-
-
 # Install Node.js   
 RUN apt install -y nodejs npm
 RUN npm install -g typescript && \
