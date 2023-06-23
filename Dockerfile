@@ -79,7 +79,8 @@ RUN pip install --upgrade pip && \
     opencv-python \
     matplotlib \
     numpy \
-    pillow
+    pillow \
+    pick
 
 # node packages
 RUN npm install -g typescript && \
