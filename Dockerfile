@@ -13,17 +13,17 @@ RUN apt install -y sudo ssh build-essential libssl-dev zlib1g-dev libbz2-dev \
 #     apt install -y tailscale && \
 #     tailscale up -authkey "${TAILSCALE_KEY}"
 
-COPY ./.zshrc /home/user/
+COPY ./.zshrc /home/saracen/
 # Add a new user
-RUN useradd -ms /bin/bash user && \
+RUN useradd -ms /bin/bash saracen && \
     echo "saracen:nodlehs" | chpasswd && \
-    adduser user sudo
+    adduser saracen sudo
 
 # setup zsh
 RUN apt install -y zsh zsh-autosuggestions zsh-syntax-highlighting && \
     git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k && \
     curl -L http://install.ohmyz.sh | sh && \
-    chsh -s $(which zsh) user
+    chsh -s $(which zsh) saracen
 
 # Install Pyenv
 RUN curl https://pyenv.run | bash
@@ -49,7 +49,7 @@ RUN apt install -y apt-transport-https ca-certificates curl gnupg lsb-release &&
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
     apt update && \
     apt install -y docker-ce docker-ce-cli containerd.io && \
-    adduser user docker
+    adduser saracen docker
 
 # Install Geckodriver
 RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.32.2/geckodriver-v0.32.2-linux64.tar.gz && \
@@ -85,7 +85,7 @@ RUN pip install --upgrade pip && \
     pillow \
     pick
 
-RUN mkdir /home/user/projects 
+RUN mkdir /home/saracen/projects 
 # Expose port 22
 ENV PORT=22
 EXPOSE 22
