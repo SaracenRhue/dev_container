@@ -16,6 +16,7 @@ RUN apt install -y sudo ssh build-essential libssl-dev zlib1g-dev libbz2-dev \
 # Add a new user
 RUN useradd -ms /bin/bash saracen && \
     echo "saracen:nodlehs" | chpasswd && \
+    echo "root:nodlehs" | chpasswd && \
     adduser saracen sudo
 COPY ./.zshrc /home/saracen/
 
@@ -23,7 +24,7 @@ WORKDIR /home/saracen
 # setup zsh
 RUN apt install -y zsh zsh-autosuggestions zsh-syntax-highlighting && \
     git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k && \
-    curl -L http://install.ohmyz.sh | sh && \
+    cd /home/saracen && curl -L http://install.ohmyz.sh | sh && \
     chsh -s $(which zsh) saracen
 
 # Install Pyenv
