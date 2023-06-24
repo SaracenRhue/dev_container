@@ -1,7 +1,8 @@
 FROM nvidia/cuda:12.1.0-base-ubuntu22.04
 
 # Update package repositories and install dependencies
-RUN apt update
+RUN apt update && apt upgrade -y
+ENV HOSTNAME=helix
 RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata. 
 RUN apt install -y sudo ssh build-essential libssl-dev zlib1g-dev libbz2-dev \
     libreadline-dev libsqlite3-dev wget curl git llvm libncurses5-dev \
@@ -18,14 +19,14 @@ RUN useradd -ms /bin/bash saracen && \
     echo "saracen:nodlehs" | chpasswd && \
     echo "root:nodlehs" | chpasswd && \
     adduser saracen sudo
-COPY ./.zshrc /home/saracen/
+# COPY ./.zshrc /home/saracen/
 
 WORKDIR /home/saracen
 # setup zsh
-RUN apt install -y zsh zsh-autosuggestions zsh-syntax-highlighting && \
-    git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k && \
-    cd /home/saracen && curl -L http://install.ohmyz.sh | sh && \
-    chsh -s $(which zsh) saracen
+# RUN apt install -y zsh zsh-autosuggestions zsh-syntax-highlighting && \
+#     git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k && \
+#     cd /home/saracen && curl -L http://install.ohmyz.sh | sh && \
+#     chsh -s $(which zsh) saracen
 
 # Install Pyenv
 RUN curl https://pyenv.run | bash
@@ -37,9 +38,9 @@ RUN pyenv install 3.11 && \
     pyenv global 3.11
 # Install Node.js   
 RUN apt install -y nodejs npm
-RUN npm install -g typescript && \
-    npm install -g sass && \
-    npm install -g @angular/cli
+# RUN npm install -g typescript && \
+#     npm install -g sass && \
+#     npm install -g @angular/cli
 
 
 # Install Docker
@@ -59,13 +60,13 @@ RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.32.2/geckod
     export PATH=/usr/local/bin:$PATH
 
 # Install Rust compiler
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+# RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 # additional packages
 RUN apt install -y \
-    default-jdk \
-    gcc \
-    golang \
+    # default-jdk \
+    # gcc \
+    # golang \
     ffmpeg \
     firefox \
     htop \
