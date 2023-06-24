@@ -21,8 +21,8 @@ RUN useradd -ms /bin/bash saracen && \
     adduser saracen sudo
 # COPY ./.zshrc /home/saracen/
 
-WORKDIR /home/saracen
-# setup zsh
+# WORKDIR /home/saracen
+# # setup zsh
 # RUN apt install -y zsh zsh-autosuggestions zsh-syntax-highlighting && \
 #     git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k && \
 #     cd /home/saracen && curl -L http://install.ohmyz.sh | sh && \
