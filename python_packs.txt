@@ -1,0 +1,9 @@
+torch
+selenium
+pyautogui
+opencv-python
+matplotlib
+numpy
+pillow
+pick
+streamlit

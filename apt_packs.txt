@@ -1,0 +1,7 @@
+default-jdk
+gcc
+golang
+ffmpeg
+firefox
+htop
+nano

@@ -63,27 +63,11 @@ RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.32.2/geckod
 # RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 # additional packages
-RUN apt install -y \
-    # default-jdk \
-    # gcc \
-    # golang \
-    ffmpeg \
-    firefox \
-    htop \
-    nano
+RUN apt install -y < apt_packs.txt
 
 # python packages
 RUN pip install --upgrade pip && \
-    pip install wheel && \
-    pip install \
-    torch \
-    selenium \
-    pyautogui \
-    opencv-python \
-    matplotlib \
-    numpy \
-    pillow \
-    pick
+    pip install -r python_packs.txt
 
 RUN mkdir /home/saracen/projects 
 # Expose port 22
