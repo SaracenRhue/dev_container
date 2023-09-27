@@ -62,6 +62,9 @@ RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.32.2/geckod
 # Install Rust compiler
 # RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
+COPY ./apt_packs.txt .
+COPY ./python_packs.txt .
+
 # additional packages
 RUN apt install -y < apt_packs.txt
 
@@ -69,6 +72,7 @@ RUN apt install -y < apt_packs.txt
 RUN pip install --upgrade pip && \
     pip install -r python_packs.txt
 
+RUN rm -fr ./apt_packs.txt ./python_packs.txt
 RUN mkdir /home/saracen/projects 
 # Expose port 22
 ENV PORT=22
