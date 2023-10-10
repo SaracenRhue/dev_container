@@ -23,7 +23,7 @@ RUN useradd -ms /bin/bash saracen && \
 
 # WORKDIR /home/saracen
 # # setup zsh
-# RUN apt install -y zsh zsh-autosuggestions zsh-syntax-highlighting && \
+# RUN && \
 #     git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k && \
 #     cd /home/saracen && curl -L http://install.ohmyz.sh | sh && \
 #     chsh -s $(which zsh) saracen
@@ -34,8 +34,8 @@ RUN curl https://pyenv.run | bash
 ENV PYENV_ROOT /root/.pyenv
 ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
 # Install Python 3.10 using Pyenv
-RUN pyenv install 3.11 && \
-    pyenv global 3.11
+RUN pyenv install 3.10 && \
+    pyenv global 3.10
 # Install Node.js   
 RUN apt install -y nodejs npm
 # RUN npm install -g typescript && \
@@ -82,6 +82,8 @@ ENV PORT=3000
 EXPOSE 3000
 ENV PORT=8000
 EXPOSE 8000
+ENV PORT=7860
+EXPOSE 7860
 # VOLUME /home/user/projects
 
 # Start SSH service and docker deamon
