@@ -84,7 +84,6 @@ ENV PORT=8000
 EXPOSE 8000
 ENV PORT=7860
 EXPOSE 7860
-# VOLUME /home/user/projects
 
 # Start SSH service and docker deamon
 RUN mkdir /var/run/sshd
